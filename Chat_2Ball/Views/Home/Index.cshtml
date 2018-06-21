@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat_2Ball</title>
+</head>
+<body>
+    <h2>Чат-комната</h2>
+
+    <div class="main">
+
+        <div id="loginBlock">
+            Введите логин:<br />
+            <input id="txtUserName" type="text" />
+            <input id="btnLogin" type="button" value="Войти" />
+        </div>
+        <div id="chatBody">
+            <div id="header"></div>
+            <div id="inputForm">
+                <!--Отправка сообщений-->
+                <form action="http://localhost:62422/Messages/Create" method="post">
+                    <input type="text" id="message" name="Text" />
+                    <input id="hdId" type="hidden" name="UserId" />
+                    
+                    <input type="submit" id="sendmessage" value="Отправить" />
+                </form>
+                <!--/////////-->
+            </div>
+            <div id="chatroom"></div>
+
+            <div id="chatusers">
+                <p><b>Все пользователи</b></p>
+            </div>
+        </div>
+        <!--Регистрация пользователей-->
+        <form action="http://localhost:62422/Users/Create" method="post">
+            <input id="hdId" type="hidden" name="ConnectionId" />
+            <input id="username" type="hidden" name="Name" />
+            <input id="asd" type="submit" value="Submit" />
+        </form>
+        <!--////////////-->
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <!--Ссылка на библиотеку SignalR & Ajax -->
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/util.js"></script>
+</body>
+</html>
