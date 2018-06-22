@@ -22,7 +22,7 @@ namespace Chat_2Ball.Controllers
             var result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
-            result.Data = await db.Messages.Select(s => new { Id = s.Id, Text = s.Text, UsersId = s.UsersId }).ToListAsync();
+            result.Data = await db.Messages.Select(s => new { Id = s.Id, Text = s.Text, UserName = s.UserName }).ToListAsync();
 
             return result;
 
@@ -55,16 +55,16 @@ namespace Chat_2Ball.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(string Text, byte?[] Image, string UserId)
+        public async Task<ActionResult> Create(string Text, string Image, string UserName)
         {
             var result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
             if (ModelState.IsValid)
             {
-                db.Messages.Add( new Messages { Text = Text, Image = Image, UsersId = UserId });
+                db.Messages.Add( new Messages { Text = Text, Image = Image, UserName = UserName});
                 await db.SaveChangesAsync();
-                result.Data = new Messages { Text = Text, Image = Image, UsersId = UserId };
+                result.Data = new Messages { Text = Text, Image = Image, UserName = UserName};
                 return result;
             }
 
@@ -93,16 +93,16 @@ namespace Chat_2Ball.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(string Text, byte?[] Image, string UserId)
+        public async Task<ActionResult> Edit(string Text, string Image)
         {
             var result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
             if (ModelState.IsValid)
             {
-                db.Entry(new Messages { Text = Text, Image = Image, UsersId = UserId }).State = EntityState.Modified;
+                db.Entry(new Messages { Text = Text, Image = Image}).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                result.Data = new Messages { Text = Text, Image = Image, UsersId = UserId };
+                result.Data = new Messages { Text = Text, Image = Image};
                 return result;
             }
 

@@ -9,8 +9,8 @@ namespace Chat_2Ball.Models
     public class Users
     {
         [Key]
-        public string ConnectionId { get; set; }
-
         public string Name { get; set; }
+
+        public string ConnectionId { get; set; }
     }
 }

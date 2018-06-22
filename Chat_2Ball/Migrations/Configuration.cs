@@ -10,6 +10,7 @@ namespace Chat_2Ball.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Chat_2Ball.Context.ContextDB context)

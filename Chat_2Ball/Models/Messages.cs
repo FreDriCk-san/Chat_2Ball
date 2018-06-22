@@ -9,14 +9,15 @@ namespace Chat_2Ball.Models
 {
     public class Messages
     {
-        public string Id { get; set; }
+        [Key]
+        public long Id { get; set; }
 
         public string Text { get; set; }
 
-        public byte?[] Image { get; set; }
+        public string Image { get; set; }
 
         [Required, ForeignKey("Users")]
-        public string UsersId { get; set; }
+        public string UserName { get; set; }
         public virtual Users Users { get; set; }
     }
 }

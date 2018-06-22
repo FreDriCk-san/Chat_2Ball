@@ -21,7 +21,9 @@
         // установка в скрытых полях имени и id текущего пользователя
         $('#hdId').val(id);
         $('#username').val(userName);
+        $('#hdId-1').val(id);
         $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
+        $.post('http://localhost:62422/Users/Create', { ConnectionId: $('#hdId').val(), Name: $('#username').val() });
 
         // Добавление всех пользователей
         for (i = 0; i < allUsers.length; i++) {
@@ -48,7 +50,19 @@
         $('#sendmessage').click(function () {
             // Вызываем у хаба метод Send
             chat.server.send($('#username').val(), $('#message').val());
-            //$('#message').val('');
+
+            var image;
+            var file = document.querySelector('#inputForm input[type="file"]').files[0];
+            if (file != undefined) {
+                readFile(file, function (e) {
+                    image = e.target.result;
+                });
+            }
+            
+
+            $.post('http://localhost:62422/Messages/Create', { Text: $('#message').val(), Image: image, UserName: $('#username').val() });
+            $('#message').val('');
+            $('#image').val(undefined);
         });
 
         // обработка логина
@@ -63,6 +77,30 @@
             }
         });
     });
+
+    $('#SendMessage').submit(function (e) {
+        e.preventDefault();
+    });
+
+    //$('#SignIn').submit(function () {
+    //    var User = {
+    //        ConnectionId: $('#hdId').val(),
+    //        Name: $('#username').val()
+    //    }
+
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: 'http://localhost:62422/Users/Create',
+    //        data: JSON.stringify(User),
+    //        contentType: 'application/json; charset=utf-8',
+    //        error: function () {
+    //            alert('Something got wrong')
+    //        },
+    //        complete: function () {
+    //            alert('All is good')
+    //        }
+    //    })
+    //});
 });
 
 
@@ -82,4 +120,21 @@ function AddUser(id, name) {
 
         $("#chatusers").append('<p id="' + id + '"><b>' + name + '</b></p>');
     }
+}
+
+
+function ChangeUrl(page, url) {
+    if (typeof (history.pushState) != "undefined") {
+        var obj = { Page: page, Url: url };
+        history.pushState(obj, obj.Page, obj.Url);
+    } else {
+        alert("Browser does not support HTML5.");
+    }
+}
+
+
+function readFile(file, callback) {
+    var reader = new FileReader();
+    reader.onload = callback;
+    reader.readAsText(file);
 }

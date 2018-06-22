@@ -66,7 +66,7 @@ namespace Chat_2Ball.Controllers
             }
 
             result.Data = false;
-            return RedirectPermanent("/Home/Index");
+            return result;
         }
 
         //// GET: Users/Edit/5

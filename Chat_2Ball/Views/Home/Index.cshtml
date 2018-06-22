@@ -14,17 +14,37 @@
         <div id="loginBlock">
             Введите логин:<br />
             <input id="txtUserName" type="text" />
-            <input id="btnLogin" type="button" value="Войти" />
+            <input id="btnLogin" type="submit" value="Войти" />
         </div>
         <div id="chatBody">
             <div id="header"></div>
             <div id="inputForm">
-                <!--Отправка сообщений-->
-                <form action="http://localhost:62422/Messages/Create" method="post">
+                <!--Отправка сообщений и регистрация пользователей-->
+                <form id="SendMessage" method="post">
                     <input type="text" id="message" name="Text" />
-                    <input id="hdId" type="hidden" name="UserId" />
-                    
+                    <div id="emoji" style="float: left;">
+                        <p onclick="document.getElementById('message').value=document.getElementById('message').value+'😀'; return false;" style="float: left;">
+                            😀
+                        </p>
+                        <p onclick="document.getElementById('message').value=document.getElementById('message').value+'😂'; return false;" style="float: left;">
+                            😂
+                        </p>
+                        <p onclick="document.getElementById('message').value=document.getElementById('message').value+'😆'; return false;" style="float: left;">
+                            😆
+                        </p>
+                        <p onclick="document.getElementById('message').value=document.getElementById('message').value+'😋'; return false;" style="float: left;">
+                            😋
+                        </p>
+                        <p onclick="document.getElementById('message').value=document.getElementById('message').value+'😍'; return false;" style="float: left;">
+                            😍
+                        </p>
+                        <p onclick="document.getElementById('message').value=document.getElementById('message').value+'😎'; return false;" style="float: left;">
+                            😎
+                        </p>
+                    </div>
+                    <input type="hidden" id="hdId-1" name="UserId" />
                     <input type="submit" id="sendmessage" value="Отправить" />
+                    <input type="file" id="image" value="Вставка" />
                 </form>
                 <!--/////////-->
             </div>
@@ -34,13 +54,8 @@
                 <p><b>Все пользователи</b></p>
             </div>
         </div>
-        <!--Регистрация пользователей-->
-        <form action="http://localhost:62422/Users/Create" method="post">
-            <input id="hdId" type="hidden" name="ConnectionId" />
-            <input id="username" type="hidden" name="Name" />
-            <input id="asd" type="submit" value="Submit" />
-        </form>
-        <!--////////////-->
+        <input id="hdId" type="hidden" name="ConnectionId" />
+        <input id="username" type="hidden" name="Name" />
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
